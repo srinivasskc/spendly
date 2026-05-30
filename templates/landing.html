@@ -28,7 +28,7 @@
             <a href="{{ url_for('register') }}" class="px-10 py-5 rounded-[18px] text-lg font-semibold text-white transition-all duration-200 hover:translate-y-[-2px]" style="background: #090909;">
                 Create free account
             </a>
-            <a href="#" class="px-10 py-5 rounded-[18px] text-lg font-semibold text-white transition-all duration-200 hover:translate-y-[-2px]" style="background: #090909;">
+            <a href="#" id="howItWorksBtn" class="px-10 py-5 rounded-[18px] text-lg font-semibold text-white transition-all duration-200 hover:translate-y-[-2px]" style="background: #090909;">
                 See how it works
             </a>
         </div>
@@ -92,6 +92,16 @@
     </div>
 </section>
 
+<!-- Video Modal -->
+<div id="videoModal" class="modal-overlay" style="display: none;">
+    <div class="modal-container">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-video-wrapper">
+            <iframe id="modalVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
 <section class="features">
     <div class="features-inner">
         <div class="feature-card">
@@ -120,4 +130,50 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var modal = document.getElementById('videoModal');
+    var btn = document.getElementById('howItWorksBtn');
+    var closeBtn = document.getElementById('modalClose');
+    var videoIframe = document.getElementById('modalVideo');
+
+    // YouTube video URL - replace with actual video ID
+    var youtubeUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
+
+    // Open modal
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        videoIframe.src = youtubeUrl;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal function
+    function closeModal() {
+        modal.style.display = 'none';
+        videoIframe.src = ''; // Stop video by clearing src
+        document.body.style.overflow = '';
+    }
+
+    // Close button click
+    closeBtn.addEventListener('click', closeModal);
+
+    // Click outside modal
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+});
+</script>
 {% endblock %}
