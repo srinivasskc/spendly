@@ -31,6 +31,145 @@
 }
 
 /* ------------------------------------------------------------------ */
+/* Landing Page Hero Section - Spendly                                */
+/* ------------------------------------------------------------------ */
+
+.hero-spendly {
+    background: #F8F8F8;
+}
+
+/* Override body background for landing page */
+body {
+    background: #F8F8F8;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .hero-spendly h1 {
+        font-size: 64px !important;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-spendly .max-w-\[1200px\] {
+        padding: 60px 16px !important;
+    }
+
+    .hero-spendly h1 {
+        font-size: 42px !important;
+        line-height: 1.1 !important;
+        letter-spacing: -1px !important;
+    }
+
+    .hero-spendly p {
+        font-size: 18px !important;
+    }
+
+    .hero-spendly .flex.gap-5 {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-spendly .flex.gap-5 a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-spendly .grid.grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .hero-spendly .w-full.max-w-\[1050px\] {
+        padding: 16px !important;
+    }
+
+    /* Move labels above progress bars on mobile */
+    .hero-spendly .flex.items-center.gap-7 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px !important;
+    }
+
+    .hero-spendly .flex.items-center.gap-7 .w-\[70px\] {
+        width: 100% !important;
+    }
+
+    .hero-spendly .flex-1.h-3\.5 {
+        width: 100% !important;
+    }
+}
+
+/* Smooth hover animations */
+.hero-spendly a {
+    transition: all 0.2s ease;
+}
+
+.hero-spendly a:hover {
+    opacity: 0.9;
+}
+
+/* ------------------------------------------------------------------ */
+/* Video Modal                                                         */
+/* ------------------------------------------------------------------ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+}
+
+.modal-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 32px;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+    transition: opacity 0.2s;
+    z-index: 1001;
+}
+
+.modal-close:hover {
+    opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------ */
 /* Reset                                                               */
 /* ------------------------------------------------------------------ */
 
