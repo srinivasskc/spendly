@@ -1,0 +1,78 @@
+/* ------------------------------------------------------------------ */
+/* Hero Section - Spendly                                              */
+/* ------------------------------------------------------------------ */
+
+.hero-spendly {
+    background: #F8F8F8;
+}
+
+/* Override body background for landing page */
+body {
+    background: #F8F8F8;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .hero-spendly h1 {
+        font-size: 64px !important;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-spendly .max-w-\[1200px\] {
+        padding: 60px 16px !important;
+    }
+
+    .hero-spendly h1 {
+        font-size: 42px !important;
+        line-height: 1.1 !important;
+        letter-spacing: -1px !important;
+    }
+
+    .hero-spendly p {
+        font-size: 18px !important;
+    }
+
+    .hero-spendly .flex.gap-5 {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-spendly .flex.gap-5 a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-spendly .grid.grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+
+    .hero-spendly .w-full.max-w-\[1050px\] {
+        padding: 16px !important;
+    }
+
+    /* Move labels above progress bars on mobile */
+    .hero-spendly .flex.items-center.gap-7 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px !important;
+    }
+
+    .hero-spendly .flex.items-center.gap-7 .w-\[70px\] {
+        width: 100% !important;
+    }
+
+    .hero-spendly .flex-1.h-3\.5 {
+        width: 100% !important;
+    }
+}
+
+/* Smooth hover animations */
+.hero-spendly a {
+    transition: all 0.2s ease;
+}
+
+.hero-spendly a:hover {
+    opacity: 0.9;
+}

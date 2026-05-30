@@ -6,8 +6,38 @@
     <title>{% block title %}Spendly{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        spendly: {
+                            bg: '#F8F8F8',
+                            dark: '#090909',
+                            green: '#1F9D73',
+                            greenLight: '#E7F5EF',
+                            greenBorder: '#A8DCC8',
+                            muted: '#666666',
+                            label: '#888888',
+                            red: '#E25555',
+                            gray: '#999999',
+                            canvas: '#F5F4F1',
+                            border: '#DFDDD7',
+                            cardBorder: '#E4E4E4',
+                            track: '#E6E2DB',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body>

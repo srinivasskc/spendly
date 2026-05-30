@@ -4,57 +4,88 @@
 
 {% block content %}
 
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-badge">Personal Finance Tracker</div>
-        <h1 class="hero-title">
-            Know where your<br>
-            <em>money goes</em>
-        </h1>
-        <p class="hero-subtitle">
-            Log expenses, understand your spending patterns,
-            and take control of your financial life —
-            one transaction at a time.
-        </p>
-        <div class="hero-actions">
-            <a href="{{ url_for('register') }}" class="btn-primary">Start tracking free</a>
-            <a href="{{ url_for('login') }}" class="btn-ghost">Sign in</a>
+<section class="hero-spendly">
+    <div class="max-w-[1200px] mx-auto px-6 py-20 flex flex-col items-center text-center" style="background: #F8F8F8;">
+        <!-- Announcement Badge -->
+        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-[9999px] border" style="background: #E7F5EF; border-color: #A8DCC8; margin-bottom: 48px;">
+            <span class="w-2.5 h-2.5 rounded-full" style="background: #1F9D73;"></span>
+            <span class="text-lg font-semibold" style="color: #147A5A;">Free to use · No credit card needed</span>
         </div>
-    </div>
-    <div class="hero-visual">
-        <div class="mock-card">
-            <div class="mock-card-header">
-                <span class="mock-label">March 2026</span>
-                <span class="mock-total">₹12,450</span>
+
+        <!-- Main Heading -->
+        <h1 class="text-[80px] font-extrabold leading-[1.05] tracking-[-3px] mb-8" style="max-width: 900px; color: #090909;">
+            Track every rupee.<br>
+            <span style="color: #1F9D73;">Know where it goes.</span>
+        </h1>
+
+        <!-- Supporting Text -->
+        <p class="text-xl font-normal leading-[1.7] mb-12" style="max-width: 760px; color: #666666; font-size: 22px;">
+            Spendly helps you log expenses, spot patterns, and stay on budget — without the spreadsheet headache.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex gap-5 justify-center mb-[72px]">
+            <a href="{{ url_for('register') }}" class="px-10 py-5 rounded-[18px] text-lg font-semibold text-white transition-all duration-200 hover:translate-y-[-2px]" style="background: #090909;">
+                Create free account
+            </a>
+            <a href="#" class="px-10 py-5 rounded-[18px] text-lg font-semibold text-white transition-all duration-200 hover:translate-y-[-2px]" style="background: #090909;">
+                See how it works
+            </a>
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="w-full max-w-[1050px] rounded-[28px] p-7" style="background: #F5F4F1; border: 1px solid #DFDDD7; box-shadow: 0 10px 40px rgba(0,0,0,.04);">
+            <!-- Browser Header -->
+            <div class="flex gap-[10px] mb-7">
+                <span class="w-4 h-4 rounded-full" style="background: #E58D8D;"></span>
+                <span class="w-4 h-4 rounded-full" style="background: #F1BE68;"></span>
+                <span class="w-4 h-4 rounded-full" style="background: #98D6C2;"></span>
             </div>
-            <div class="mock-bars">
-                <div class="mock-bar-row">
-                    <span class="mock-cat">Bills</span>
-                    <div class="mock-bar-track">
-                        <div class="mock-bar" style="width: 72%"></div>
-                    </div>
-                    <span class="mock-amt">₹4,500</span>
+
+            <!-- Statistics Grid -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <!-- Card 1 -->
+                <div class="rounded-[18px] p-7" style="background: white; border: 1px solid #E4E4E4;">
+                    <div class="text-sm font-medium" style="color: #888888;">This month</div>
+                    <div class="text-[42px] font-bold my-3" style="color: #090909;">₹18,240</div>
+                    <div class="text-base font-medium" style="color: #E25555;">+12% vs last</div>
                 </div>
-                <div class="mock-bar-row">
-                    <span class="mock-cat">Food</span>
-                    <div class="mock-bar-track">
-                        <div class="mock-bar mock-bar-2" style="width: 52%"></div>
-                    </div>
-                    <span class="mock-amt">₹3,200</span>
+                <!-- Card 2 -->
+                <div class="rounded-[18px] p-7" style="background: white; border: 1px solid #E4E4E4;">
+                    <div class="text-sm font-medium" style="color: #888888;">Budget left</div>
+                    <div class="text-[42px] font-bold my-3" style="color: #090909;">₹6,760</div>
+                    <div class="text-base font-medium" style="color: #1F9D73;">43% remaining</div>
                 </div>
-                <div class="mock-bar-row">
-                    <span class="mock-cat">Health</span>
-                    <div class="mock-bar-track">
-                        <div class="mock-bar mock-bar-3" style="width: 33%"></div>
-                    </div>
-                    <span class="mock-amt">₹2,050</span>
+                <!-- Card 3 -->
+                <div class="rounded-[18px] p-7" style="background: white; border: 1px solid #E4E4E4;">
+                    <div class="text-sm font-medium" style="color: #888888;">Transactions</div>
+                    <div class="text-[42px] font-bold my-3" style="color: #090909;">34</div>
+                    <div class="text-base font-medium" style="color: #999999;">this month</div>
                 </div>
-                <div class="mock-bar-row">
-                    <span class="mock-cat">Transport</span>
-                    <div class="mock-bar-track">
-                        <div class="mock-bar mock-bar-4" style="width: 28%"></div>
+            </div>
+
+            <!-- Expense Breakdown Panel -->
+            <div class="rounded-[18px] p-7" style="background: white; border: 1px solid #E4E4E4;">
+                <!-- Food Row -->
+                <div class="flex items-center gap-7 mb-5">
+                    <span class="w-[70px] text-base font-medium" style="color: #666666;">Food</span>
+                    <div class="flex-1 h-3.5 rounded-full overflow-hidden" style="background: #E6E2DB;">
+                        <div class="h-full rounded-full" style="width: 72%; background: #F1A028;"></div>
                     </div>
-                    <span class="mock-amt">₹1,800</span>
+                </div>
+                <!-- Travel Row -->
+                <div class="flex items-center gap-7 mb-5">
+                    <span class="w-[70px] text-base font-medium" style="color: #666666;">Travel</span>
+                    <div class="flex-1 h-3.5 rounded-full overflow-hidden" style="background: #E6E2DB;">
+                        <div class="h-full rounded-full" style="width: 48%; background: #3C84D7;"></div>
+                    </div>
+                </div>
+                <!-- Bills Row -->
+                <div class="flex items-center gap-7">
+                    <span class="w-[70px] text-base font-medium" style="color: #666666;">Bills</span>
+                    <div class="flex-1 h-3.5 rounded-full overflow-hidden" style="background: #E6E2DB;">
+                        <div class="h-full rounded-full" style="width: 38%; background: #7B6EDB;"></div>
+                    </div>
                 </div>
             </div>
         </div>
