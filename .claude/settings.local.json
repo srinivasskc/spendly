@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(git init)",
+      "Bash(.venv/Scripts/python.exe *)",
+      "Bash(curl -s http://127.0.0.1:5001/)",
+      "Bash(env)",
+      "Bash(FLASK_DEBUG=0 FLASK_ENV=production .venv/Scripts/python.exe app.py)",
+      "Bash(curl -s http://127.0.0.1:5002/)",
+      "Bash(curl -s http://127.0.0.1:5002/test)",
+      "Bash(curl -s http://127.0.0.1:5003/)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //F //PID 1816)",
+      "Bash(taskkill //F //PID 14880)",
+      "Bash(taskkill //F //PID 8396)",
+      "Bash(taskkill //F //PID 3768)",
+      "Bash(taskkill //F //PID 15284)",
+      "Bash(curl -s http://127.0.0.1:5004/)",
+      "Bash(taskkill //F //PID 13384)",
+      "Bash(taskkill //F //PID 10748)",
+      "Bash(awk '{print $5}')",
+      "Bash(xargs -I{} taskkill //F //PID {})"
+    ]
+  }
+}

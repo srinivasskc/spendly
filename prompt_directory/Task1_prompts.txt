@@ -1,0 +1,748 @@
+TASK 1
+==========================
+CHANGE 0:
+
+Merge the two CSS files (style.css and landing.css) into a single file.
+
+1. Combined both @static/css/style.css and @static/css/landing.css into a single style.css file
+2. Updated @templates/base.html to only reference the combined style.css (removed the separate landing.css reference)
+3. Deleted the now redundant @static/css/landing.css file
+
+This simplifies the CSS loading and maintenance.
+==========================
+CHANGE 1:
+
+
+Add two links to the footer in @templates/base.html:
+
+- "Terms and Conditions"
+- "Privacy Policy"
+
+Both should be plain text lines, no special stylings needed for now.
+Point both of links to "#" as placeholder hrefs, since those pages dont exists now.
+
+Do not modify anything on that page.
+===========================
+CHANGE 2:
+
+Create a "Terms and Conditions" page for Spendly.
+
+1. Add a new route in [@app.py](http://app.py/):
+GET /terms → renders templates/terms.html
+2. Create templates/terms.html with generic terms and conditions
+content appropriate for a personal expense tracking app.
+Include sections like: Acceptance of Terms, Use of Service,
+User Data, Limitations of Liability, and Changes to Terms.
+Extend base.html if it exists, otherwise match the style of
+landing.html.
+3. In @templates/landing.html, update the "Terms and Conditions"
+footer link href from "#" to "/terms".
+
+============
+CHANGE 3:
+
+
+Do the same as you did for the Terms and Conditions page,
+but for Privacy Policy.
+
+1. Add a new route in [@app.py](http://app.py/):
+GET /privacy → renders templates/privacy.html
+2. Create templates/privacy.html with generic privacy policy
+content appropriate for a personal expense tracking app.
+Include sections like: Data We Collect, How We Use Your Data,
+Data Storage, Third Party Services, and Contact Us.
+Match the style of terms.html.
+3. In @templates/landing.html, update the "Privacy Policy"
+footer link href from "#" to "/privacy".
+4. Make sure the appearance looks like the website's theme
+
+======
+CHANGE 4:
+
+I've attached a screenshot of the updated Spendly hero section design.
+
+Modify only the hero section in @templates/landing.html and @static/css/landing.css
+to match this image exactly. Do not touch any other part of the page.
+
+(or)
+
+First paste the image in chatgpt:
+Analyze this hero section image. Write a detailed structural breakdown for code implementation as prompt in md format. 
+List the precise text content, layout hierarchy (flex/grid placement), colors (hex codes if possible), spacing values, buttons, and responsive behavior rules
+
+Then Paste in claude:
+# Build Hero Section for Spendly
+
+Treat this prompt as the complete design specification.
+
+Do not invent additional layout elements.
+
+Build a fully responsive SaaS landing page hero section for an expense tracking product called **Spendly**.
+
+---
+
+## Tech Requirements
+
+- React
+- Tailwind CSS
+- Mobile-first
+- Semantic HTML
+- Accessible buttons
+- Production-ready code
+- Smooth hover animations
+
+---
+
+## Design Style
+
+Create a modern SaaS landing page inspired by:
+
+- Stripe
+- Linear
+- Vercel
+- Arc Browser
+
+Characteristics:
+
+- Minimal
+- Clean
+- Premium
+- Large typography
+- Soft gray background
+- Centered content
+- Strong visual hierarchy
+
+---
+
+# Layout Structure
+
+```text
+Hero Section
+│
+├── Announcement Badge
+│
+├── Main Heading
+│
+├── Description
+│
+├── CTA Button Row
+│
+└── Dashboard Preview
+    │
+    ├── Browser Header
+    │
+    ├── Statistics Cards
+    │
+    └── Expense Breakdown
+```
+
+---
+
+# Hero Container
+
+```css
+max-width: 1200px;
+margin: 0 auto;
+padding: 80px 24px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+```
+
+Background:
+
+```css
+#F8F8F8
+```
+
+---
+
+# Announcement Badge
+
+Position above heading.
+
+### Text
+
+Free to use · No credit card needed
+
+### Styling
+
+```css
+display: inline-flex;
+align-items: center;
+gap: 12px;
+
+padding: 12px 24px;
+
+border-radius: 9999px;
+
+background: #E7F5EF;
+border: 1px solid #A8DCC8;
+
+color: #147A5A;
+
+font-size: 18px;
+font-weight: 600;
+```
+
+### Status Dot
+
+```css
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #1F9D73;
+```
+
+Spacing below badge:
+
+```css
+margin-bottom: 48px;
+```
+
+---
+
+# Main Heading
+
+Two lines:
+
+```text
+Track every rupee.
+Know where it goes.
+```
+
+### Typography
+
+```css
+font-size: 80px;
+font-weight: 800;
+line-height: 1.05;
+letter-spacing: -3px;
+```
+
+### Colors
+
+Line 1:
+
+```css
+#090909
+```
+
+Line 2:
+
+```css
+#1F9D73
+```
+
+Maximum width:
+
+```css
+900px;
+```
+
+Spacing below heading:
+
+```css
+margin-bottom: 32px;
+```
+
+---
+
+# Supporting Text
+
+### Text
+
+Spendly helps you log expenses, spot patterns, and stay on budget — without the spreadsheet headache.
+
+### Typography
+
+```css
+font-size: 22px;
+line-height: 1.7;
+font-weight: 400;
+color: #666666;
+```
+
+Maximum width:
+
+```css
+760px;
+```
+
+Spacing below:
+
+```css
+48px;
+```
+
+---
+
+# CTA Buttons
+
+Layout:
+
+```css
+display: flex;
+gap: 20px;
+justify-content: center;
+```
+
+---
+
+## Primary Button
+
+Text:
+
+```text
+Create free account
+```
+
+Style:
+
+```css
+background: #090909;
+color: white;
+
+padding: 20px 40px;
+
+border-radius: 18px;
+
+font-size: 18px;
+font-weight: 600;
+```
+
+Hover:
+
+```css
+transform: translateY(-2px);
+transition: all .2s ease;
+```
+
+---
+
+## Secondary Button
+
+Text:
+
+```text
+See how it works
+```
+
+Use identical styling.
+
+Spacing below button row:
+
+```css
+72px;
+```
+
+---
+
+# Dashboard Preview
+
+Create a browser-style product mockup.
+
+Container:
+
+```css
+width: 100%;
+max-width: 1050px;
+
+background: #F5F4F1;
+
+border: 1px solid #DFDDD7;
+
+border-radius: 28px;
+
+padding: 28px;
+```
+
+Shadow:
+
+```css
+box-shadow: 0 10px 40px rgba(0,0,0,.04);
+```
+
+---
+
+# Browser Header
+
+Three circles aligned left.
+
+### Circle Colors
+
+```css
+#E58D8D
+#F1BE68
+#98D6C2
+```
+
+### Circle Size
+
+```css
+width: 16px;
+height: 16px;
+border-radius: 50%;
+```
+
+Gap:
+
+```css
+10px;
+```
+
+Spacing below:
+
+```css
+28px;
+```
+
+---
+
+# Statistics Grid
+
+Desktop:
+
+```css
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+```
+
+---
+
+## Card Style
+
+```css
+background: white;
+
+border: 1px solid #E4E4E4;
+
+border-radius: 18px;
+
+padding: 28px;
+```
+
+---
+
+## Card 1
+
+Label:
+
+```text
+This month
+```
+
+Value:
+
+```text
+₹18,240
+```
+
+Footer:
+
+```text
++12% vs last
+```
+
+Footer Color:
+
+```css
+#E25555
+```
+
+---
+
+## Card 2
+
+Label:
+
+```text
+Budget left
+```
+
+Value:
+
+```text
+₹6,760
+```
+
+Footer:
+
+```text
+43% remaining
+```
+
+Footer Color:
+
+```css
+#1F9D73
+```
+
+---
+
+## Card 3
+
+Label:
+
+```text
+Transactions
+```
+
+Value:
+
+```text
+34
+```
+
+Footer:
+
+```text
+this month
+```
+
+Footer Color:
+
+```css
+#999999
+```
+
+---
+
+# Card Typography
+
+Label:
+
+```css
+font-size: 14px;
+font-weight: 500;
+color: #888888;
+```
+
+Value:
+
+```css
+font-size: 42px;
+font-weight: 700;
+color: #090909;
+```
+
+Footer:
+
+```css
+font-size: 16px;
+font-weight: 500;
+```
+
+---
+
+# Expense Breakdown Panel
+
+Place below statistics cards.
+
+Margin Top:
+
+```css
+24px;
+```
+
+Container:
+
+```css
+background: white;
+
+border: 1px solid #E4E4E4;
+
+border-radius: 18px;
+
+padding: 28px;
+```
+
+---
+
+# Progress Rows
+
+Labels:
+
+```text
+Food
+Travel
+Bills
+```
+
+Layout:
+
+```css
+display: flex;
+align-items: center;
+gap: 28px;
+```
+
+Label Width:
+
+```css
+70px;
+```
+
+---
+
+## Progress Track
+
+```css
+height: 14px;
+width: 100%;
+
+background: #E6E2DB;
+
+border-radius: 999px;
+```
+
+---
+
+## Food
+
+Fill Width:
+
+```css
+72%;
+```
+
+Fill Color:
+
+```css
+#F1A028
+```
+
+---
+
+## Travel
+
+Fill Width:
+
+```css
+48%;
+```
+
+Fill Color:
+
+```css
+#3C84D7
+```
+
+---
+
+## Bills
+
+Fill Width:
+
+```css
+38%;
+```
+
+Fill Color:
+
+```css
+#7B6EDB
+```
+
+---
+
+# Responsive Rules
+
+## Tablet (<1024px)
+
+Heading:
+
+```css
+font-size: 64px;
+```
+
+Keep CTA buttons horizontal.
+
+---
+
+## Mobile (<768px)
+
+Heading:
+
+```css
+font-size: 42px;
+line-height: 1.1;
+```
+
+Description:
+
+```css
+font-size: 18px;
+```
+
+CTA Buttons:
+
+```css
+flex-direction: column;
+width: 100%;
+```
+
+Statistics Grid:
+
+```css
+grid-template-columns: 1fr;
+```
+
+Dashboard padding:
+
+```css
+16px;
+```
+
+Move progress labels above progress bars.
+
+---
+
+# Final Requirements
+
+- Pixel-perfect implementation
+- Use Tailwind utilities wherever possible
+- Responsive on mobile, tablet, and desktop
+- Clean component structure
+- Smooth hover states
+- Premium SaaS appearance
+- Match the provided specification exactly
+
+(or) DID NOT WOR FOR ME.
+
+# 1. Export your free API key
+export ANTHROPIC_API_KEY=""
+
+# 2. Point the base url to the OpenAI-compatible gateway
+export ANTHROPIC_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+
+# 3. Target the free vision model
+export ANTHROPIC_MODEL="gemini-2.5-flash"
+
+# 4. Launch the agent
+claude
+
+
+=======
+CHANGE 5:
+
+Add a modal to @templates/landing.html that opens when the user clicks
+"See how it works".
+
+Requirements:
+
+- Clicking "See how it works" opens a modal overlay
+- Modal contains an embedded YouTube video (use any placeholder YouTube URL
+for now, I will replace it later)
+- Video should be playable inside the modal
+- Clicking the close button OR clicking outside the modal closes it
+- When the modal closes, the video must stop playing (not continue in background)
+- No page libraries or dependencies — vanilla JS only, since we are not
+using any JS framework in this project
+
+Do not modify any other part of the page.
+
+=======
