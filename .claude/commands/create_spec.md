@@ -30,7 +30,7 @@ From $ARGUMENTS extract:
    - Example: registration, login-logout
 
 4. `branch_name` — format: `feature/<feature_slug>`
-   - Example: `feature/registration`
+- Example: `feature/registration`
 
 If you cannot infer these from $ARGUMENTS, ask the user
 to clarify before proceeding.
