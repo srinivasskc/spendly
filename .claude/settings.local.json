@@ -20,7 +20,8 @@
       "Bash(taskkill //F //PID 13384)",
       "Bash(taskkill //F //PID 10748)",
       "Bash(awk '{print $5}')",
-      "Bash(xargs -I{} taskkill //F //PID {})"
+      "Bash(xargs -I{} taskkill //F //PID {})",
+      "Bash(python *)"
     ]
   }
 }
