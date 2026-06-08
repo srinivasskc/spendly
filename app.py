@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from werkzeug.security import generate_password_hash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import os
 import re
 
-from database.db import get_db
+from database.db import get_db, get_user_by_email
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -82,9 +82,36 @@ def register():
     return redirect(url_for("login"))
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
+
+    # POST request - process login
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+
+    # Validate fields
+    if not email or not password:
+        return render_template("login.html", error="Email and password are required.")
+
+    # Get user by email
+    user = get_user_by_email(email)
+
+    if not user:
+        return render_template("login.html", error="Invalid email or password.")
+
+    # Verify password
+    if not check_password_hash(user["password"], password):
+        return render_template("login.html", error="Invalid email or password.")
+
+    # Create session
+    session["user_id"] = user["id"]
+    session["user_name"] = user["name"]
+    session["user_email"] = user["email"]
+
+    flash("Welcome back! You have signed in successfully.")
+    return redirect(url_for("landing"))
 
 
 @app.route("/terms")
@@ -103,7 +130,9 @@ def privacy():
 
 @app.route("/logout")
 def logout():
-    return "Logout — coming in Step 3"
+    session.clear()
+    flash("You have been signed out.")
+    return redirect(url_for("landing"))
 
 
 @app.route("/profile")
