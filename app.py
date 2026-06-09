@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import re
 
-from database.db import get_db, get_user_by_email
+from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -137,7 +137,35 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    # Check authentication
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Please sign in to view your profile.")
+        return redirect(url_for("login"))
+
+    # Fetch user data
+    user = get_user_by_id(user_id)
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
+    # Fetch expense summary
+    summary = get_expense_summary(user_id)
+
+    # Format member since date
+    try:
+        created = datetime.fromisoformat(user["created_at"])
+        member_since = created.strftime("%B %Y")  # e.g., "June 2026"
+    except:
+        member_since = "Unknown"
+
+    return render_template(
+        "profile.html",
+        user=user,
+        expense_count=summary["count"],
+        total_spent=summary["total"],
+        member_since=member_since
+    )
 
 
 @app.route("/expenses/add")

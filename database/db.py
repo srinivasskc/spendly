@@ -53,6 +53,28 @@ def get_user_by_email(email):
     return user
 
 
+def get_user_by_id(user_id):
+    """Retrieve a user by ID."""
+    conn = get_db()
+    user = conn.execute(
+        "SELECT id, name, email, created_at FROM users WHERE id = ?",
+        (user_id,)
+    ).fetchone()
+    conn.close()
+    return user
+
+
+def get_expense_summary(user_id):
+    """Get expense summary: total count and total amount."""
+    conn = get_db()
+    result = conn.execute(
+        "SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total FROM expenses WHERE user_id = ?",
+        (user_id,)
+    ).fetchone()
+    conn.close()
+    return {"count": result["count"], "total": result["total"]}
+
+
 def seed_db():
     """Insert sample data for development if no users exist."""
     conn = get_db()
