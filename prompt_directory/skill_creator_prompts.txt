@@ -1,3 +1,5 @@
+Prompt 1:
+
 Skill Name
 Frontend UI Designer for spendly (a personal expense tracker)
 https://github.com/srinivasskc/spendly
@@ -54,4 +56,10 @@ If unclear - ask for photos of the existing design
 Avoid:
 Generic/outdated UI
 Unstructured code dumps.
+ 
+
+ ----
+ Prompt 2:
+ Read the claude.md file and specs/04-profile-page-design.md and Frontend-design skill come up with a detailed implementation plan.
+ Save the plan in .claude/plans/ folder as 04-profile-page.md
  

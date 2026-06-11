@@ -2,9 +2,14 @@
 
 {% block title %}Profile — Spendly{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
 {% block content %}
 <section class="profile-section">
     <div class="profile-container">
+
         <!-- Profile Header Card -->
         <div class="profile-header-card">
             <div class="profile-avatar">
@@ -24,7 +29,7 @@
         <!-- Expense Summary Cards -->
         <div class="profile-summary-grid">
             <div class="profile-summary-card">
-                <div class="summary-icon">
+                <div class="summary-icon expenses">
                     <i data-lucide="receipt"></i>
                 </div>
                 <div class="summary-content">
@@ -33,35 +38,34 @@
                 </div>
             </div>
             <div class="profile-summary-card">
-                <div class="summary-icon">
+                <div class="summary-icon amount">
                     <i data-lucide="wallet"></i>
                 </div>
                 <div class="summary-content">
                     <span class="summary-label">Total Spent</span>
-                    <span class="summary-value">₹{{ "%.2f"|format(total_spent) }}</span>
+                    <span class="summary-value currency">₹{{ "{:,.2f}".format(total_spent) }}</span>
                 </div>
             </div>
         </div>
 
-        <!-- Account Info Card -->
-        <div class="profile-account-card">
-            <h2 class="profile-account-title">Account Details</h2>
-            <div class="account-detail">
-                <span class="account-label">Display Name</span>
-                <span class="account-value">{{ user.name }}</span>
-            </div>
-            <div class="account-detail">
-                <span class="account-label">Email Address</span>
-                <span class="account-value">{{ user.email }}</span>
-            </div>
+        <!-- Quick Actions -->
+        <div class="profile-actions">
+            <a href="{{ url_for('add_expense') }}" class="profile-action-btn primary">
+                <i data-lucide="plus-circle"></i>
+                Add New Expense
+            </a>
+            <a href="{{ url_for('logout') }}" class="profile-action-btn danger">
+                <i data-lucide="log-out"></i>
+                Sign Out
+            </a>
         </div>
+
     </div>
 </section>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    // Initialize Lucide icons after DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
     });
