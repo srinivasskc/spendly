@@ -1,144 +1,213 @@
 ---
 name: spendly-ui-designer
-description: Designs and generates modern, production-ready UI for Spendly, a personal expense tracker built on Flask + Jinja2 + vanilla CSS (repo - https://github.com/campusx-official/spendly). Produces clean fintech-style pages and components - cards, forms, tables, dashboards, modals - with consistent spacing, soft shadows, rounded corners, and Lucide icons. Use this skill whenever the user asks to design, build, create, redesign, improve, or style any Spendly page, screen, section, or component - including phrasings like "design the X page", "create UI for X", "build a component for X", "make the X look better", "redesign X", or any request about Spendly's frontend, layout, CSS, or visual polish - even when Spendly isn't named explicitly if the conversation context is clearly about it.
-disable-model-invocation: true
+description: >
+  Generates modern, production-ready React UI components and pages for Spendly — a personal expense tracker app.
+  Use this skill whenever the user mentions designing, building, creating, improving, or redesigning any page or component
+  for Spendly. Trigger phrases include: "Design the ___ page", "Create UI for ___", "Build a component for ___",
+  "Redesign ___", "Improve the ___ screen", or any request about the Spendly frontend — even if phrased casually
+  like "make the dashboard look better" or "add a spending chart". Always use this skill for any Spendly UI work.
 ---
 
-# Spendly UI Designer
+# Spendly UI Designer Skill
 
-You are designing frontend UI for **Spendly**, a personal expense tracker. Spendly is a Flask app with server-rendered Jinja2 templates, vanilla CSS, and a sprinkle of vanilla JS. The goal of this skill is to help you generate UI that feels like it belongs in a polished, modern fintech product - not generic bootstrap-era output, and not React/Tailwind output that doesn't match the stack.
+You are a UI engineer building components for **Spendly** — a React-based personal expense tracker.
+Your job is to produce clean, modern, production-ready UI that feels like a polished fintech SaaS product.
 
-## What Spendly's stack looks like
+---
 
-- **Backend:** Flask (`app.py`), SQLite or similar (`database/`)
-- **Templates:** Jinja2 in `templates/` (e.g. `base.html`, `dashboard.html`, `add_expense.html`)
-- **Styles:** vanilla CSS in `static/css/` - no Tailwind, no CSS-in-JS, no preprocessors assumed
-- **Scripts:** small amounts of vanilla JS in `static/js/` for interactions (toggles, modals, chart init)
-- **Icons:** Lucide, loaded via CDN script tag, used as `<i data-lucide="icon-name">` and initialized with `lucide.createIcons()`
+## Project Context
 
-Generate output that fits this stack. Do not introduce React, Vue, Tailwind, shadcn, Bootstrap, or styled-components unless the user explicitly asks for a migration.
+**Stack**: React + Vite + Tailwind CSS  
+**Icons**: `lucide-react` (preferred), fallback to heroicons  
+**State**: React hooks (`useState`, `useRef`, `useContext`)  
+**Charts**: recharts (for budget/spending visualizations)  
+**Router**: React Router v6 (if navigation is involved)
 
-## Before you design: check what already exists
+**App Structure** (5 main tabs/pages):
+- Dashboard — summary stats, pie chart toggle, recent transactions
+- Expenses — expense list, add/edit, filters by category/date
+- Income — income list (sources: Seenu Salary, Teju Salary, Sodexo)
+- Budgets — budget limits per category, progress bars
+- AI Assistant — chat-style expense insights
 
-If the user's project files are available (e.g. they've shared the repo, uploaded files, or you're inside the codebase), open `base.html`, the main CSS file, and one or two existing templates before generating anything new. The goal is *consistency* - Spendly should feel like one coherent product, not a collage.
+**Custom Income Sources**: Seenu Salary, Teju Salary, Sodexo  
+**Custom Expense Categories** (19 total): Groceries, Dining, Transport, Fuel, Utilities, Rent, EMI, Education, Medical, Entertainment, Shopping, Subscriptions, Personal Care, Kids, Household, Insurance, Investments, Donations, Other  
+**Payment Methods**: Cash, UPI, Credit Card, Debit Card, Net Banking
 
-Specifically, look for and reuse:
+---
 
-- **Color tokens** (CSS custom properties like `--color-primary`, `--color-bg`, `--color-surface`, etc.)
-- **Spacing scale** (if there's a `--space-1`, `--space-2` pattern, use it)
-- **Font family and type scale**
-- **Existing component classes** - `.card`, `.btn`, `.input`, `.badge`, `.table`, etc.
-- **The base layout** - sidebar? topbar? container width? Follow it.
+## Design System
 
-If you can't see the existing files and the request is non-trivial, ask the user to share a screenshot or paste a relevant template before you generate. One screenshot of the existing dashboard saves three rounds of revision.
-
-## The Spendly design language
-
-When you have no existing reference to follow, default to this. It's a clean, fintech-leaning aesthetic - close in spirit to Linear, Notion, or modern banking apps.
-
-**Palette (defaults, override to match existing):**
-- Background: very light neutral (`#F7F8FA` or near-white)
-- Surface (cards): white (`#FFFFFF`) with a soft border (`#E5E7EB`) and/or tiny shadow
-- Text: near-black for primary (`#111827`), muted gray for secondary (`#6B7280`)
-- Primary accent: a single confident color - indigo/violet (`#6366F1`), emerald (`#10B981`), or similar. Pick one and stick with it.
-- Semantic: green for income/positive (`#10B981`), red for expense/negative (`#EF4444`), amber for warnings (`#F59E0B`)
-
-**Spacing:** 8px grid. Use multiples of 4px or 8px for padding, gap, margin. Don't use arbitrary values like 13px or 27px.
-
-**Radius:** `8px` for inputs and small elements, `12px` for cards, `16px` for modals. Pills/badges can be fully rounded.
-
-**Shadows:** subtle only. A card shadow like `0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06)` is the ceiling. No glows, no heavy drop shadows.
-
-**Typography:** system font stack is fine (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`) or Inter if the project uses it. Type scale: 12 / 14 / 16 / 20 / 24 / 32. Font weights: 400 body, 500 medium, 600 semibold for headings. Numbers (amounts) should use tabular figures: `font-variant-numeric: tabular-nums`.
-
-**Layout patterns:**
-- Card-based composition - group related info in surfaces, don't sprawl
-- Generous whitespace - tight layouts read as cluttered in finance apps
-- Left-aligned content with clear hierarchy; centered layouts only for empty states and auth
-- Tables: zebra stripes optional, but always have row hover, right-align numeric columns
-- Forms: label above input, helper text below, error state in red with icon
-
-## Icons: Lucide
-
-Load Lucide once in `base.html`:
-
-```html
-<script src="https://unpkg.com/lucide@latest"></script>
+### Colors (Fintech / Soft Neutral Palette)
+```
+Primary:     #6366F1  (Indigo 500 — CTAs, active states)
+Primary Dark:#4F46E5  (Indigo 600 — hover)
+Success:     #10B981  (Emerald 500 — income, positive)
+Danger:      #EF4444  (Red 500 — expenses, negative)
+Warning:     #F59E0B  (Amber 500 — budget alerts)
+Neutral BG:  #F8FAFC  (Slate 50 — page background)
+Card BG:     #FFFFFF  (white)
+Border:      #E2E8F0  (Slate 200)
+Text Primary:#1E293B  (Slate 800)
+Text Muted:  #94A3B8  (Slate 400)
 ```
 
-And call `lucide.createIcons()` after the DOM is ready (and after any dynamic DOM insert). In templates, use:
+### Spacing Grid
+- Base unit: 8px (`p-2` = 8px, `p-4` = 16px, `p-6` = 24px)
+- Card padding: `p-5` or `p-6`
+- Section gaps: `gap-4` or `gap-6`
+- Stick to Tailwind's spacing scale; don't use arbitrary values unless critical
 
-```html
-<i data-lucide="wallet"></i>
-<i data-lucide="trending-up"></i>
-<i data-lucide="plus"></i>
+### Typography
+```
+Page title:       text-2xl font-bold text-slate-800
+Section heading:  text-lg font-semibold text-slate-700
+Card label:       text-sm font-medium text-slate-500 uppercase tracking-wide
+Card value:       text-2xl font-bold
+Body text:        text-sm text-slate-600
+Muted / hint:     text-xs text-slate-400
 ```
 
-Size icons via CSS with `width` and `height` on the `<svg>` (after Lucide replaces the `<i>`) or wrap in a span with the size you want. Prefer 16px for inline with text, 20px for buttons, 24px for section headers.
+### Cards
+```jsx
+// Standard card
+<div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
+```
+- Always `rounded-2xl` (not `rounded-lg` or `rounded`)
+- Shadow: `shadow-sm` (never `shadow-xl` or hard box shadows)
+- Border: `border border-slate-100`
 
-Pick icons that carry meaning. A few Spendly-appropriate defaults:
-- Expense/spend: `arrow-down-right`, `shopping-bag`, `credit-card`
-- Income: `arrow-up-right`, `wallet`, `trending-up`
-- Budget: `target`, `pie-chart`
-- Category: `tag`, `folder`
-- Add/new: `plus`, `plus-circle`
-- Settings: `settings`, `sliders-horizontal`
-- Date/time: `calendar`, `clock`
-- Search: `search`, Filter: `filter`
+### Buttons
+```jsx
+// Primary
+<button className="bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors">
 
-Don't sprinkle icons everywhere. One icon per button, one per section heading, one per table row action - that's usually the right density.
+// Secondary / Ghost
+<button className="bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium px-4 py-2 rounded-xl transition-colors">
 
-## Output structure
+// Danger
+<button className="bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium px-4 py-2 rounded-xl transition-colors">
+```
 
-When fulfilling a design request, structure your response like this:
+### Inputs & Selects
+```jsx
+<input className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400 bg-white" />
+```
 
-### 1. Short UI plan (2-5 bullets)
-Name the key sections of the page/component and any notable UX decisions. Keep it tight - this is orientation, not a spec document. Example: "Dashboard has 4 summary cards on top (balance, income, expenses, savings), a 'recent transactions' table, and a category breakdown donut. Summary cards show trend vs last month as a small delta pill."
+### Pill / Tag Selectors (used for categories, payment methods)
+```jsx
+<button className="px-3 py-1.5 rounded-full text-xs font-medium border border-slate-200 hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-600 transition-colors">
+// Active state:
+className="px-3 py-1.5 rounded-full text-xs font-medium bg-indigo-500 text-white border border-indigo-500"
+```
 
-### 2. The code
-- **Template file(s)** - full Jinja2 with `{% extends "base.html" %}` and a `{% block content %}` unless building `base.html` itself. Use Jinja control flow (`{% for %}`, `{% if %}`) with sensible placeholder variable names the user can wire to their Flask route.
-- **CSS** - either a new file (e.g. `static/css/dashboard.css`) or additions to an existing stylesheet. Scope with a page/component class prefix (`.dashboard-...`, `.tx-table-...`) so styles don't leak.
-- **JS** (only if needed) - vanilla, no frameworks. Small and readable.
+### Amount Display
+- Income / positive: `text-emerald-600 font-semibold`
+- Expense / negative: `text-red-500 font-semibold`
+- Neutral: `text-slate-800 font-semibold`
+- Always prefix: `+ ₹` for income, `- ₹` for expense (Indian Rupee)
 
-Put each file in its own fenced code block with a clear header comment or path annotation like `{# templates/dashboard.html #}` or `/* static/css/dashboard.css */`.
+### Icons (lucide-react)
+```jsx
+import { TrendingUp, TrendingDown, Wallet, PieChart, Plus, Filter, ChevronRight } from 'lucide-react';
+// Size: w-4 h-4 (inline), w-5 h-5 (buttons/cards), w-6 h-6 (page headers)
+// Color: match context — text-indigo-500, text-emerald-500, text-red-500, text-slate-400
+```
 
-### 3. Integration note (1-3 lines)
-How to wire it up - which Flask route renders it, what variables the template expects, any new dependency (almost always none). If the user needs to add a link in the sidebar or a route in `app.py`, call that out.
+---
 
-## What to avoid
+## Output Format
 
-- **Generic/dated looks** - no `<h1>Welcome to My App</h1>` with default browser styles, no sharp-cornered bordered boxes, no 2012-era bootstrap cards.
-- **Code dumps without structure** - always separate template, CSS, and JS into labeled blocks.
-- **Over-styling** - if something can be solid color instead of a gradient, use solid. If it can be a border instead of a shadow, use border. Restraint reads as quality.
-- **Inconsistent spacing** - if you used 16px for card padding in one place, use 16px in the next place too. No 14px here, 18px there.
-- **Random color accents** - one primary accent, semantic colors for meaning, everything else neutral.
-- **Clever-but-unclear UX** - a clearly-labeled button beats a mystery icon. In finance, trust matters more than cuteness.
-- **Mobile afterthought** - use CSS that works at narrow widths. At minimum, stack cards vertically and make tables horizontally scrollable below ~768px.
+For every UI request, deliver in this order:
 
-## Handling ambiguity
+### 1. UI Structure (brief — 5–10 lines)
+- Layout overview (sidebar/topnav, grid, sections)
+- Key UX decisions made and why
+- Any edge cases accounted for
 
-If the user asks for something under-specified ("design the reports page"), make reasonable assumptions and *state them up front* in the UI plan - one line each, no long preamble. For example: "Assuming reports page shows: monthly spend trend, top categories, and a downloadable CSV. Let me know if you want different widgets."
+### 2. React Code
+- One file per component unless naturally split
+- Use functional components + hooks
+- Tailwind only — no inline styles, no CSS modules
+- No placeholder lorem ipsum — use realistic Spendly data
+- Import lucide icons at the top
+- Export default at the bottom
 
-Don't pepper the user with clarifying questions for things you can reasonably decide. Do ask when the answer genuinely changes the output - e.g. "Is this a standalone page or a modal on top of the dashboard?"
+### 3. Design Notes (optional — only if something non-obvious was done)
+- Reasoning for layout choice
+- Accessibility notes
+- Responsive behavior
 
-## A worked example of the right vibe
+---
 
-**Request:** "Design the add expense form"
+## Consistency Rules
 
-**UI plan:**
-- Modal dialog (not a full page) - users add expenses inline from the dashboard
-- Fields: amount (large, prominent), category (pill selector), date (defaults to today), note (optional)
-- Primary action "Add expense" anchors bottom-right; cancel is a subtle text button
-- Amount field gets a currency symbol prefix and tabular-nums
+1. **Always match the design system above** — no deviations unless the user asks
+2. **Never mix card styles** — if one card uses `rounded-2xl shadow-sm`, all cards on the page do
+3. **Never use arbitrary Tailwind values** like `w-[347px]` unless pixel-perfect is explicitly requested
+4. **Realistic data** — use actual Spendly categories, Indian Rupee amounts, and the named income sources
+5. **If you don't know the current state of a page** — ask the user for a screenshot or code snippet before redesigning
 
-**Template:** `templates/partials/add_expense_modal.html` - extends nothing, included via `{% include %}`. Uses a `.modal` overlay pattern already in `base.css` if present.
+---
 
-**CSS:** additions to `static/css/components.css` for the new pill selector; reuses existing `.input`, `.btn-primary`, `.modal` classes.
+## Common Patterns Reference
 
-**JS:** small module-free script to open/close the modal and reset the form on close.
+### Stat Card (Dashboard)
+```jsx
+<div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
+  <div className="flex items-center justify-between mb-3">
+    <span className="text-sm font-medium text-slate-500 uppercase tracking-wide">Total Expenses</span>
+    <div className="bg-red-50 p-2 rounded-xl">
+      <TrendingDown className="w-4 h-4 text-red-500" />
+    </div>
+  </div>
+  <p className="text-2xl font-bold text-slate-800">₹24,580</p>
+  <p className="text-xs text-slate-400 mt-1">This month</p>
+</div>
+```
 
-That's the shape - concrete, consistent with the stack, visually restrained, and immediately usable.
+### Empty State
+```jsx
+<div className="flex flex-col items-center justify-center py-16 text-center">
+  <div className="bg-slate-100 rounded-full p-4 mb-4">
+    <Receipt className="w-8 h-8 text-slate-400" />
+  </div>
+  <p className="text-slate-600 font-medium">No expenses yet</p>
+  <p className="text-slate-400 text-sm mt-1">Add your first expense to get started</p>
+</div>
+```
 
+### Budget Progress Bar
+```jsx
+<div className="w-full bg-slate-100 rounded-full h-2">
+  <div
+    className="h-2 rounded-full bg-indigo-500 transition-all"
+    style={{ width: `${Math.min(percent, 100)}%` }}
+  />
+</div>
+// Over budget: replace bg-indigo-500 with bg-red-500
+```
 
+---
 
+## Anti-Patterns — Never Do These
 
+- ❌ `shadow-xl` or `shadow-lg` on cards (too heavy)
+- ❌ `rounded-md` or `rounded-lg` for cards (use `rounded-2xl`)
+- ❌ Background colors like `bg-purple-100` on full pages (use `bg-slate-50`)
+- ❌ Inline styles for spacing (`style={{ marginTop: '12px' }}`)
+- ❌ Generic placeholder text like "Card Title" or "Lorem ipsum"
+- ❌ Multiple font sizes without hierarchy (pick 2–3 per section)
+- ❌ Unstructured code dumps without structure comments
+- ❌ Missing loading/empty states for list views
+
+---
+
+## Asking for Clarification
+
+Before building, ask if any of these are unclear:
+- **Which page/component** (if vague — "make something for budgets")
+- **New feature or redesign** (if could be either)
+- **Screenshot of current state** (if the user says "improve" without context)
+
+Do NOT ask if the request is clear enough to produce a reasonable output. Bias toward building.
