@@ -22,7 +22,14 @@
       "Bash(awk '{print $5}')",
       "Bash(xargs -I{} taskkill //F //PID {})",
       "Bash(python *)",
-      "Skill(/create_spec)"
+      "Skill(/create_spec)",
+      "Bash(Start-Sleep -Seconds 2)",
+      "Bash(Get-Content \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-Admin-Downloads-expense-tracker\\\\55e95215-9b35-473d-8294-ebb67f4de3c9\\\\tasks\\\\bvjdp5t0g.output\")",
+      "Bash(curl *)",
+      "Bash(taskkill /F /PID 18280)",
+      "Bash(taskkill /F /PID 7372)",
+      "Bash(taskkill /F /PID 20004)",
+      "Bash(powershell *)"
     ]
   }
 }

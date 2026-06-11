@@ -1,0 +1,65 @@
+Prompt 1:
+
+Skill Name
+Frontend UI Designer for spendly (a personal expense tracker)
+https://github.com/srinivasskc/spendly
+
+What this skill does:
+Generates modern, production-ready UI components/pages for the 
+Spendly expense tracker.
+Clean, responsive design
+Consistent with existing design
+Uses meaningful icons
+Focus on usability * clarity
+
+When it should trigger:
+Automatically trigger when user says things like:
+* Design the __ page
+* Create UI for __ page
+* Build components for __ 
+* Redesign/Improve __ 
+(Especially for spendly related UI)
+
+Inputs:
+Page/Component Name.
+Optional: Constraints, data, references.
+
+Output should include:
+1. UI Structure (brief)
+Layout + Key Sections
+Important UX Decisions
+
+2. Code
+Clean CSS
+Modular components
+Minimal Boilerplate
+
+3. Design Quality
+Modern SaaS look
+Good Spacing & hierarchy
+Card-based layout
+Subtle colors + Shadows
+
+4. Icons
+Use lucide/hero icons where relevant
+
+Design Rules:
+Minimal, Clean, Fintech Style UI
+Rounded Corners, Soft Shadows
+Consistent Spacing (8px, grid)
+Avoid Clutter or random Style
+
+Consistency Rule:
+Match existing project design
+If unclear - ask for photos of the existing design
+
+Avoid:
+Generic/outdated UI
+Unstructured code dumps.
+ 
+
+ ----
+ Prompt 2:
+ Read the claude.md file and specs/04-profile-page-design.md and Frontend-design skill come up with a detailed implementation plan.
+ Save the plan in .claude/plans/ folder as 04-profile-page.md
+ 

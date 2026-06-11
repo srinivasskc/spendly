@@ -1,30 +1,32 @@
 # Spec: Profile Page Design
 
 ## Overview
-A user profile page that displays the logged-in user's account information including their name, email, member since date, and expense summary statistics. Users can view their profile and update their name. This is Step 4 of the Spendly roadmap.
+A user profile page that displays account information including name, email, member since date, expense statistics (total count and total spent), and provides navigation to manage expenses. This page serves as the user's dashboard after logging in.
 
 ## Depends on
-- Step 2: Registration (users table exists, users can register)
-- Step 3: Login and Logout (session management works, user_id stored in session)
+- Step 2: Registration (users table exists)
+- Step 3: Login and Logout (authentication works, session management)
 
 ## Routes
-- `GET /profile` — Display user profile — logged-in only
+- `GET /profile` — Display user profile with stats — logged-in only
 
 ## Database changes
-No new tables or columns required. The existing `users` table has all necessary fields (id, name, email, created_at).
+No database changes required. Uses existing `get_user_by_id()` and `get_expense_summary()` functions from `database/db.py`.
 
 ## Templates
-- **Create:** `templates/profile.html` — User profile page with:
-  - User name and email display
-  - Member since date formatted nicely
-  - Expense summary (total expenses count, total amount spent)
-  - Account details display (read-only)
+- **Create:** `templates/profile.html`
+  - User info section: name, email, member since date
+  - Stats section: expense count, total spent (in INR)
+  - Navigation: link to add expense, link to logout
+- **Modify:** `templates/base.html`
+  - Add profile link to navigation when user is logged in
 
 ## Files to change
-- `app.py` — Implement GET /profile route to fetch user data and render template
+- `templates/base.html` — Add conditional profile link in nav
 
 ## Files to create
 - `templates/profile.html` — Profile page template
+- `static/css/profile.css` — Profile page styles
 
 ## New dependencies
 No new dependencies.
@@ -32,19 +34,21 @@ No new dependencies.
 ## Rules for implementation
 - No SQLAlchemy or ORMs
 - Parameterised queries only
-- Use CSS variables from base.html — never hardcode hex values
+- Passwords hashed with werkzeug
+- Use CSS variables — never hardcode hex values
 - All templates extend `base.html`
-- Use url_for() for all internal links and form actions
-- Profile page requires logged-in user (check session.get('user_id'))
-- Redirect to login if user not authenticated
-- Use werkzeug for password hashing (already imported in app.py)
+- Use url_for() for all internal links
+- Display currency in INR (use ₹ symbol)
+- Format large numbers with comma separators (e.g., ₹1,234.56)
 
 ## Definition of done
-- [ ] GET /profile redirects to login when user is not authenticated
-- [ ] GET /profile shows user's name, email, and member since date
-- [ ] GET /profile shows expense summary (total count, total amount)
-- [ ] GET /profile shows account details (read-only display)
-- [ ] Profile page extends base.html
-- [ ] Profile page uses url_for() for all links
-- [ ] Profile page uses CSS variables from base.html theme
-- [ ] Navbar shows "Profile" link when user is logged in (already done in base.html)
+- [ ] GET /profile redirects to login if not authenticated
+- [ ] Profile displays user name, email, and member since date
+- [ ] Profile displays expense count
+- [ ] Profile displays total spent in INR
+- [ ] Profile has link to add expense page
+- [ ] Profile has logout button
+- [ ] Base.html shows profile link in nav when logged in
+- [ ] All links use url_for()
+- [ ] Page uses CSS variables for colors
+- [ ] Large amounts formatted with commas
