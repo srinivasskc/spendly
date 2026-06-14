@@ -60,13 +60,40 @@
             </a>
         </div>
 
+        <!-- Recent Transactions -->
+        <div class="recent-transactions">
+            <h2 class="section-title">Recent Transactions</h2>
+            {% if recent_expenses %}
+            <div class="transactions-list">
+                {% for expense in recent_expenses %}
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <span class="transaction-desc">{{ expense.description }}</span>
+                        <span class="transaction-category">{{ expense.category }}</span>
+                    </div>
+                    <div class="transaction-details">
+                        <span class="transaction-date">{{ expense.date }}</span>
+                        <span class="transaction-amount">₹{{ "{:,.2f}".format(expense.amount) }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i data-lucide="receipt"></i>
+                <p>No expenses yet</p>
+                <a href="{{ url_for('add_expense') }}" class="empty-state-link">Add your first expense</a>
+            </div>
+            {% endif %}
+        </div>
+
     </div>
 </section>
 {% endblock %}
 
 {% block scripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         lucide.createIcons();
     });
 </script>

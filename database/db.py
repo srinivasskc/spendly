@@ -75,6 +75,17 @@ def get_expense_summary(user_id):
     return {"count": result["count"], "total": result["total"]}
 
 
+def get_recent_expenses(user_id, limit=5):
+    """Get recent expenses for a user, ordered by date descending."""
+    conn = get_db()
+    results = conn.execute(
+        "SELECT id, amount, description, category, date FROM expenses WHERE user_id = ? ORDER BY date DESC, id DESC LIMIT ?",
+        (user_id, limit)
+    ).fetchall()
+    conn.close()
+    return [dict(row) for row in results]
+
+
 def seed_db():
     """Insert sample data for development if no users exist."""
     conn = get_db()

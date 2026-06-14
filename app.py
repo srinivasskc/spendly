@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import re
 
-from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary
+from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary, get_recent_expenses
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -111,7 +111,7 @@ def login():
     session["user_email"] = user["email"]
 
     flash("Welcome back! You have signed in successfully.")
-    return redirect(url_for("landing"))
+    return redirect(url_for("profile"))
 
 
 @app.route("/terms")
@@ -151,6 +151,7 @@ def profile():
 
     # Fetch expense summary
     summary = get_expense_summary(user_id)
+    recent_expenses = get_recent_expenses(user_id, limit=5)
 
     # Format member since date
     try:
@@ -164,7 +165,8 @@ def profile():
         user=user,
         expense_count=summary["count"],
         total_spent=summary["total"],
-        member_since=member_since
+        member_since=member_since,
+        recent_expenses=recent_expenses
     )
 
 
