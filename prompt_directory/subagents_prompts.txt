@@ -1,0 +1,3 @@
+Prompt 1:
+Explore this codebase and tell me what is this all about. what features are already developed and which 
+features are yet to be developed 

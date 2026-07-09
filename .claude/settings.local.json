@@ -29,7 +29,16 @@
       "Bash(taskkill /F /PID 18280)",
       "Bash(taskkill /F /PID 7372)",
       "Bash(taskkill /F /PID 20004)",
-      "Bash(powershell *)"
+      "Bash(powershell *)",
+      "Read(//c/Users/Admin/.claude/plugins/cache/agents-observe/agents-observe/0.9.11/skills/observe/**)",
+      "Bash(node scripts/cli.sh health)",
+      "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" health)",
+      "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" start)",
+      "Bash(docker *)",
+      "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" logs-mcp -n 30)",
+      "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" debug)",
+      "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" help)",
+      "Bash(C:/Users/Admin/.claude/plugins/cache/agents-observe/agents-observe/0.9.11/skills/observe/scripts/cli.sh start *)"
     ]
   }
 }
