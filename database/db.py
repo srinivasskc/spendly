@@ -86,6 +86,48 @@ def get_recent_expenses(user_id, limit=5):
     return [dict(row) for row in results]
 
 
+def add_expense(user_id, amount, description, category, date):
+    """Insert a new expense into the database."""
+    conn = get_db()
+    created_at = datetime.now().isoformat()
+    conn.execute(
+        "INSERT INTO expenses (user_id, amount, description, category, date, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        (user_id, amount, description, category, date, created_at)
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_expense_by_id(expense_id):
+    """Get a single expense by ID."""
+    conn = get_db()
+    expense = conn.execute(
+        "SELECT id, user_id, amount, description, category, date FROM expenses WHERE id = ?",
+        (expense_id,)
+    ).fetchone()
+    conn.close()
+    return dict(expense) if expense else None
+
+
+def update_expense(expense_id, amount, description, category, date):
+    """Update an existing expense."""
+    conn = get_db()
+    conn.execute(
+        "UPDATE expenses SET amount = ?, description = ?, category = ?, date = ? WHERE id = ?",
+        (amount, description, category, date, expense_id)
+    )
+    conn.commit()
+    conn.close()
+
+
+def delete_expense(expense_id):
+    """Delete an expense from the database."""
+    conn = get_db()
+    conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+    conn.commit()
+    conn.close()
+
+
 def seed_db():
     """Insert sample data for development if no users exist."""
     conn = get_db()

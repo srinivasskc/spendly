@@ -38,7 +38,8 @@
       "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" logs-mcp -n 30)",
       "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" debug)",
       "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" help)",
-      "Bash(C:/Users/Admin/.claude/plugins/cache/agents-observe/agents-observe/0.9.11/skills/observe/scripts/cli.sh start *)"
+      "Bash(C:/Users/Admin/.claude/plugins/cache/agents-observe/agents-observe/0.9.11/skills/observe/scripts/cli.sh start *)",
+      "Bash(more +0)"
     ]
   }
 }

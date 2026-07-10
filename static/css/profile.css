@@ -289,6 +289,69 @@
     color: #1e293b;
 }
 
+.transaction-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.transaction-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.transaction-action-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+.transaction-action-btn.edit {
+    background: #eef2ff;
+    color: #6366f1;
+    border: 1px solid transparent;
+}
+
+.transaction-action-btn.edit:hover {
+    background: #6366f1;
+    color: #ffffff;
+    border-color: #6366f1;
+}
+
+.transaction-action-btn.delete {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid transparent;
+}
+
+.transaction-action-btn.delete:hover {
+    background: #dc2626;
+    color: #ffffff;
+    border-color: #dc2626;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.delete-form .transaction-action-btn {
+    background: #fef2f2;
+    color: #dc2626;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.delete-form .transaction-action-btn:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
 /* Empty State */
 .empty-state {
     text-align: center;

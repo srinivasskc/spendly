@@ -5,6 +5,7 @@ import os
 import re
 
 from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary, get_recent_expenses
+from database.db import add_expense as db_add_expense, get_expense_by_id as db_get_expense_by_id, update_expense as db_update_expense, delete_expense as db_delete_expense
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -170,19 +171,109 @@ def profile():
     )
 
 
-@app.route("/expenses/add")
+@app.route("/expenses/add", methods=["GET", "POST"])
 def add_expense():
-    return "Add expense — coming in Step 7"
+    # Check authentication
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Please sign in to add an expense.")
+        return redirect(url_for("login"))
+
+    if request.method == "GET":
+        return render_template("expense_add.html")
+
+    # POST request - process form data
+    amount = request.form.get("amount", "").strip()
+    description = request.form.get("description", "").strip()
+    category = request.form.get("category", "").strip()
+    date = request.form.get("date", "").strip()
+
+    # Server-side validation
+    if not amount or not description or not category or not date:
+        return render_template("expense_add.html", error="All fields are required.")
+
+    try:
+        amount = float(amount)
+        if amount <= 0:
+            return render_template("expense_add.html", error="Amount must be greater than 0.")
+    except ValueError:
+        return render_template("expense_add.html", error="Please enter a valid amount.")
+
+    # Insert expense into database
+    db_add_expense(user_id, amount, description, category, date)
+
+    flash("Expense added successfully!")
+    return redirect(url_for("profile"))
 
 
-@app.route("/expenses/<int:id>/edit")
+@app.route("/expenses/<int:id>/edit", methods=["GET", "POST"])
 def edit_expense(id):
-    return "Edit expense — coming in Step 8"
+    # Check authentication
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Please sign in to edit an expense.")
+        return redirect(url_for("login"))
+
+    # Get expense and verify ownership
+    expense = db_get_expense_by_id(id)
+    if not expense:
+        flash("Expense not found.")
+        return redirect(url_for("profile"))
+
+    if expense["user_id"] != user_id:
+        flash("You don't have permission to edit this expense.")
+        return redirect(url_for("profile"))
+
+    if request.method == "GET":
+        return render_template("expense_edit.html", expense=expense)
+
+    # POST request - process form data
+    amount = request.form.get("amount", "").strip()
+    description = request.form.get("description", "").strip()
+    category = request.form.get("category", "").strip()
+    date = request.form.get("date", "").strip()
+
+    # Server-side validation
+    if not amount or not description or not category or not date:
+        return render_template("expense_edit.html", expense=expense, error="All fields are required.")
+
+    try:
+        amount = float(amount)
+        if amount <= 0:
+            return render_template("expense_edit.html", expense=expense, error="Amount must be greater than 0.")
+    except ValueError:
+        return render_template("expense_edit.html", expense=expense, error="Please enter a valid amount.")
+
+    # Update expense in database
+    db_update_expense(id, amount, description, category, date)
+
+    flash("Expense updated successfully!")
+    return redirect(url_for("profile"))
 
 
-@app.route("/expenses/<int:id>/delete")
+@app.route("/expenses/<int:id>/delete", methods=["POST"])
 def delete_expense(id):
-    return "Delete expense — coming in Step 9"
+    # Check authentication
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Please sign in to delete an expense.")
+        return redirect(url_for("login"))
+
+    # Get expense and verify ownership
+    expense = db_get_expense_by_id(id)
+    if not expense:
+        flash("Expense not found.")
+        return redirect(url_for("profile"))
+
+    if expense["user_id"] != user_id:
+        flash("You don't have permission to delete this expense.")
+        return redirect(url_for("profile"))
+
+    # Delete expense from database
+    db_delete_expense(id)
+
+    flash("Expense deleted successfully!")
+    return redirect(url_for("profile"))
 
 
 if __name__ == "__main__":
