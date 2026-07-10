@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Expense — Spendly{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/expense.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="expense-section">
+    <div class="expense-container">
+
+        <div class="expense-header">
+            <a href="{{ url_for('profile') }}" class="back-link">
+                <i data-lucide="arrow-left"></i>
+                Back to Profile
+            </a>
+            <h1 class="expense-title">Edit Expense</h1>
+            <p class="expense-subtitle">Update your spending</p>
+        </div>
+
+        <div class="expense-card">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="expense-success">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% if error %}
+            <div class="expense-error">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('edit_expense', id=expense.id) }}">
+                <div class="form-group">
+                    <label for="amount">Amount (₹)</label>
+                    <input type="number" id="amount" name="amount"
+                           class="form-input" placeholder="0.00"
+                           step="0.01" min="0.01" value="{{ expense.amount }}" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description"
+                           class="form-input" placeholder="What did you spend on?"
+                           value="{{ expense.description }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" class="form-input" required>
+                        <option value="Food" {% if expense.category == 'Food' %}selected{% endif %}>Food</option>
+                        <option value="Transport" {% if expense.category == 'Transport' %}selected{% endif %}>Transport</option>
+                        <option value="Shopping" {% if expense.category == 'Shopping' %}selected{% endif %}>Shopping</option>
+                        <option value="Bills" {% if expense.category == 'Bills' %}selected{% endif %}>Bills</option>
+                        <option value="Entertainment" {% if expense.category == 'Entertainment' %}selected{% endif %}>Entertainment</option>
+                        <option value="Health" {% if expense.category == 'Health' %}selected{% endif %}>Health</option>
+                        <option value="Other" {% if expense.category == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date"
+                           class="form-input" value="{{ expense.date }}" required>
+                </div>
+                <div class="form-actions">
+                    <a href="{{ url_for('profile') }}" class="btn-cancel">Cancel</a>
+                    <button type="submit" class="btn-submit">Update Expense</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        lucide.createIcons();
+    });
+</script>
+{% endblock %}

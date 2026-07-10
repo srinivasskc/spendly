@@ -1,3 +1,15 @@
 Prompt 1:
 Explore this codebase and tell me what is this all about. what features are already developed and which 
 features are yet to be developed 
+
+Prompt 2:
+Read C:\Users\Admin\Downloads\expense-tracker\.claude\specs\05-backend-routes-for-profile-page.md
+and come up with an implementation plan for adding backend routes.
+
+While implementing the plan into code, split the work across 3 parallel sub agents.
+Sub Agent 1: Implement the profile page: Add New Expenses, Edit Expenses, Delete Expenses
+Sub Agent 2: Implement the profile page: View Recent Transactions
+Sub Agent 3: Implement the profile page: Total Expenses, Total Spent
+Each SubAgent should only modify its assigned section in app.py (profile page)
+
+
