@@ -9,7 +9,14 @@ DB_PATH = os.path.join(BASE_DIR, "spendly.db")
 
 def get_db():
     """Return a SQLite connection with row_factory and foreign keys enabled."""
-    conn = sqlite3.connect(DB_PATH)
+    # Try to get database path from Flask app config, fallback to default
+    try:
+        from flask import current_app
+        db_path = current_app.config.get('DATABASE', DB_PATH)
+    except RuntimeError:
+        db_path = DB_PATH
+
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
@@ -126,6 +133,48 @@ def delete_expense(expense_id):
     conn.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
     conn.commit()
     conn.close()
+
+
+def get_filtered_expenses(user_id, start_date=None, end_date=None, limit=None):
+    """Get expenses for a user filtered by date range."""
+    conn = get_db()
+    query = "SELECT id, amount, description, category, date FROM expenses WHERE user_id = ?"
+    params = [user_id]
+
+    if start_date:
+        query += " AND date >= ?"
+        params.append(start_date)
+    if end_date:
+        query += " AND date <= ?"
+        params.append(end_date)
+
+    query += " ORDER BY date DESC, id DESC"
+
+    if limit:
+        query += " LIMIT ?"
+        params.append(limit)
+
+    results = conn.execute(query, params).fetchall()
+    conn.close()
+    return [dict(row) for row in results]
+
+
+def get_expense_summary_filtered(user_id, start_date=None, end_date=None):
+    """Get expense summary filtered by date range."""
+    conn = get_db()
+    query = "SELECT COUNT(*) as count, COALESCE(SUM(amount), 0) as total FROM expenses WHERE user_id = ?"
+    params = [user_id]
+
+    if start_date:
+        query += " AND date >= ?"
+        params.append(start_date)
+    if end_date:
+        query += " AND date <= ?"
+        params.append(end_date)
+
+    result = conn.execute(query, params).fetchone()
+    conn.close()
+    return {"count": result["count"], "total": result["total"]}
 
 
 def seed_db():

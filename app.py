@@ -6,6 +6,7 @@ import re
 
 from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary, get_recent_expenses
 from database.db import add_expense as db_add_expense, get_expense_by_id as db_get_expense_by_id, update_expense as db_update_expense, delete_expense as db_delete_expense
+from database.db import get_filtered_expenses, get_expense_summary_filtered
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -150,9 +151,17 @@ def profile():
         session.clear()
         return redirect(url_for("login"))
 
-    # Fetch expense summary
-    summary = get_expense_summary(user_id)
-    recent_expenses = get_recent_expenses(user_id, limit=5)
+    # Get date filter parameters
+    start_date = request.args.get("start_date", "").strip()
+    end_date = request.args.get("end_date", "").strip()
+
+    # Fetch expense data (filtered or unfiltered)
+    if start_date or end_date:
+        summary = get_expense_summary_filtered(user_id, start_date or None, end_date or None)
+        recent_expenses = get_filtered_expenses(user_id, start_date or None, end_date or None, limit=None)
+    else:
+        summary = get_expense_summary(user_id)
+        recent_expenses = get_recent_expenses(user_id, limit=5)
 
     # Format member since date
     try:
@@ -161,13 +170,29 @@ def profile():
     except:
         member_since = "Unknown"
 
+    # Format dates for display
+    def format_date(date_str):
+        if not date_str:
+            return ""
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+            return dt.strftime("%d %b %Y")  # e.g., "15 Jul 2026"
+        except:
+            return date_str
+
+    # Format expenses for display
+    for expense in recent_expenses:
+        expense["date_display"] = format_date(expense["date"])
+
     return render_template(
         "profile.html",
         user=user,
         expense_count=summary["count"],
         total_spent=summary["total"],
         member_since=member_since,
-        recent_expenses=recent_expenses
+        recent_expenses=recent_expenses,
+        start_date=start_date,
+        end_date=end_date
     )
 
 
