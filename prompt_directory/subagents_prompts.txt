@@ -13,3 +13,8 @@ Sub Agent 3: Implement the profile page: Total Expenses, Total Spent
 Each SubAgent should only modify its assigned section in app.py (profile page)
 
 
+Testing Sub Agent Prompt:
+1. Create a Test Writer Sub Agent, that write pytest test cases for spendly features. Invoke after implementation of any features to generate tests based on the feature spec, not the implementation.
+
+
+
