@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics — Spendly{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="analytics-section">
+    <div class="analytics-container">
+
+        <!-- Coming Soon Card -->
+        <div class="coming-soon-card">
+            <div class="coming-soon-icon">
+                <i data-lucide="bar-chart-3"></i>
+            </div>
+            <h1 class="coming-soon-title">Analytics Coming Soon</h1>
+            <p class="coming-soon-description">
+                We're building powerful analytics to help you understand your spending patterns.
+                Get insights into your expenses, track trends, and make smarter financial decisions.
+            </p>
+            <div class="coming-soon-features">
+                <div class="feature-item">
+                    <i data-lucide="pie-chart"></i>
+                    <span>Spending by category</span>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="trending-up"></i>
+                    <span>Monthly trends</span>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Daily/weekly summaries</span>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="target"></i>
+                    <span>Budget goals</span>
+                </div>
+            </div>
+            <div class="coming-soon-notify">
+                <p>Want to be notified when it's ready?</p>
+                <a href="mailto:hello@spendly.app" class="notify-btn">
+                    <i data-lucide="mail"></i>
+                    Email Updates
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Stats Preview -->
+        <div class="stats-preview">
+            <h2 class="preview-title">Your Expense Summary</h2>
+            <div class="preview-grid">
+                <div class="preview-card">
+                    <div class="preview-icon expenses">
+                        <i data-lucide="receipt"></i>
+                    </div>
+                    <div class="preview-content">
+                        <span class="preview-label">Total Expenses</span>
+                        <span class="preview-value">{{ expense_count }}</span>
+                    </div>
+                </div>
+                <div class="preview-card">
+                    <div class="preview-icon amount">
+                        <i data-lucide="wallet"></i>
+                    </div>
+                    <div class="preview-content">
+                        <span class="preview-label">Total Spent</span>
+                        <span class="preview-value currency">₹{{ "{:,.2f}".format(total_spent) }}</span>
+                    </div>
+                </div>
+                <div class="preview-card">
+                    <div class="preview-icon categories">
+                        <i data-lucide="tags"></i>
+                    </div>
+                    <div class="preview-content">
+                        <span class="preview-label">Categories Used</span>
+                        <span class="preview-value">{{ category_count }}</span>
+                    </div>
+                </div>
+            </div>
+            <p class="preview-note">
+                <i data-lucide="info"></i>
+                Full analytics will show you detailed breakdowns and visualizations of your spending data.
+            </p>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        lucide.createIcons();
+    });
+</script>
+{% endblock %}

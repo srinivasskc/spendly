@@ -39,7 +39,19 @@
       "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" debug)",
       "Bash(node \"C:\\\\Users\\\\Admin\\\\.claude\\\\plugins\\\\cache\\\\agents-observe\\\\agents-observe\\\\0.9.11\\\\hooks\\\\scripts\\\\observe_cli.mjs\" help)",
       "Bash(C:/Users/Admin/.claude/plugins/cache/agents-observe/agents-observe/0.9.11/skills/observe/scripts/cli.sh start *)",
-      "Bash(more +0)"
+      "Bash(more +0)",
+      "mcp__sqlite__list_tables",
+      "mcp__sqlite__describe_table",
+      "mcp__sqlite__read_query",
+      "mcp__plugin_figma_figma__get_design_context",
+      "WebFetch(domain:www.figma.com)",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "mcp__plugin_figma_figma__get_metadata",
+      "Bash(scripts/cli.sh start *)",
+      "Bash(scripts/cli.sh health *)",
+      "Bash(start *)",
+      "Bash(gh auth *)",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

@@ -6,7 +6,7 @@ import re
 
 from database.db import get_db, get_user_by_email, get_user_by_id, get_expense_summary, get_recent_expenses
 from database.db import add_expense as db_add_expense, get_expense_by_id as db_get_expense_by_id, update_expense as db_update_expense, delete_expense as db_delete_expense
-from database.db import get_filtered_expenses, get_expense_summary_filtered
+from database.db import get_filtered_expenses, get_expense_summary_filtered, get_all_categories_for_user
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -193,6 +193,29 @@ def profile():
         recent_expenses=recent_expenses,
         start_date=start_date,
         end_date=end_date
+    )
+
+
+@app.route("/analytics")
+def analytics():
+    # Check authentication
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("Please sign in to view analytics.")
+        return redirect(url_for("login"))
+
+    # Fetch expense summary
+    summary = get_expense_summary(user_id)
+
+    # Get unique categories count
+    categories = get_all_categories_for_user(user_id)
+    category_count = len(categories)
+
+    return render_template(
+        "analytics.html",
+        expense_count=summary["count"],
+        total_spent=summary["total"],
+        category_count=category_count
     )
 
 

@@ -194,6 +194,89 @@ Invoke these subagents after implementing features to generate and run tests.
 
 ---
 
+## GitHub MCP Configuration
+
+This project uses Claude Code with GitHub MCP (Model Context Protocol) for enhanced GitHub integration. Follow these steps to configure it.
+
+### What is GitHub MCP?
+
+GitHub MCP provides direct access to GitHub tools within Claude Code, including:
+- Creating and managing issues
+- Working with pull requests
+- Searching code and repositories
+- Managing repository files
+
+### Method 1: Using API Endpoint (Recommended)
+
+1. **Create a GitHub Personal Access Token**
+   - Go to GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+   - Generate new token with:
+     - **Repository access**: Select your repository
+     - **Permissions**: `Contents` (read/write), `Issues` (read/write), `Pull requests` (read/write), `Search` (read)
+   - Copy the generated token
+
+2. **Update Claude Code Settings**
+   
+   Edit your `settings.json` file (project-level or user-level):
+   
+   - **Project-level**: `.claude/settings.json`
+   - **User-level**: `C:\Users\Admin\.claude\settings.json`
+
+3. **Add the MCP Server Configuration**
+
+   Add the `mcpServers` section to your settings.json:
+
+   ```json
+   {
+     "mcpServers": {
+       "github": {
+         "url": "https://apigithubcopilot.com/mcp",
+         "headers": {
+           "Authorization": "Bearer <Github_Token>"
+         }
+       }
+     }
+   }
+   ```
+
+4. **Restart Claude Code**
+
+   After saving the settings, restart Claude Code to load the new MCP server configuration.
+
+### Method 2: Using Docker
+
+1. **Create a GitHub Personal Access Token** (same as Method 1)
+
+2. **Run the Docker container**
+
+   ```bash
+   export GITHUB_PERSONAL_ACCESS_TOKEN=<Github_Token>
+   claude mcp add github -- docker run -i --rm \
+     -e GITHUB_PERSONAL_ACCESS_TOKEN \
+     ghcr.io/github/github-mcp-server
+   ```
+
+### Verify the Connection
+
+Run the following command to see which MCP servers are connected:
+
+```
+/mcp
+```
+
+You should see `github` listed as an available MCP server.
+
+### Available GitHub MCP Tools
+
+Once connected, you can use tools like:
+- `mcp__github__list_issues` - List repository issues
+- `mcp__github__issue_write` - Create/update issues
+- `mcp__github__create_pull_request` - Create PRs
+- `mcp__github__search_code` - Search code across repositories
+- And many more...
+
+---
+
 ## License
 
 MIT License

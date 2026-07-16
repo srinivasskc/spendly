@@ -8,3 +8,18 @@ __pycache__/
 .claude/plans/
 credentials.txt
 *.db
+
+
+# Environments
+.env
+.env.example
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+my_env/-e ".env\n.mcp.json" 
+.env
+.mcp.json

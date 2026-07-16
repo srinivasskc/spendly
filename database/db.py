@@ -177,6 +177,17 @@ def get_expense_summary_filtered(user_id, start_date=None, end_date=None):
     return {"count": result["count"], "total": result["total"]}
 
 
+def get_all_categories_for_user(user_id):
+    """Get all unique categories used by a user."""
+    conn = get_db()
+    results = conn.execute(
+        "SELECT DISTINCT category FROM expenses WHERE user_id = ? ORDER BY category",
+        (user_id,)
+    ).fetchall()
+    conn.close()
+    return [row["category"] for row in results]
+
+
 def seed_db():
     """Insert sample data for development if no users exist."""
     conn = get_db()
