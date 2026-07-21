@@ -51,7 +51,9 @@
       "Bash(scripts/cli.sh health *)",
       "Bash(start *)",
       "Bash(gh auth *)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "mcp__github__search_repositories",
+      "mcp__github__get_me"
     ]
   }
 }
